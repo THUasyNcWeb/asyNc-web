@@ -1,0 +1,3 @@
+[submodule "asyNc-crawler"]
+	path = asyNc-crawler
+	url = git@gitlab.secoder.net:asyNc/asyNc-crawler.git
