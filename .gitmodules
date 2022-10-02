@@ -4,3 +4,6 @@
 [submodule "asyNc-db"]
 	path = asyNc-db
 	url = git@gitlab.secoder.net:asyNc/asyNc-db.git
+[submodule "asyNc-frontend"]
+	path = asyNc-frontend
+	url = git@gitlab.secoder.net:asyNc/asyNc-frontend.git
