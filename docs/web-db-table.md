@@ -10,14 +10,15 @@
    | :--- | :--- | :---------- |
    | id | AutoField | primary_key=true & db_index=True |
    | news_url | URLField | max_length=200 |
-   | category | CharField | max_length=20 |
-   | source | CharField | max_length=20 |
+   | media | CharField | max_length=20 |
+   | category | CharField | base_field=models.CharField(mex_length=10) & size=5 | 
    | key_words | ArrayField | base_field=models.CharField(mex_length=10) & size=8 | 
+   | tags | ArrayField | base_field=models.CharField(mex_length=10) & size=8 | 
    | title | CharField | max_length=50 |
-   | summary | TextField | |
+   | description | TextField | |
    | content | TextField | |
    | first_img_url | URLField | max_length=200 |
-   | date | DateTimeField | |
+   | pub_time | DateTimeField | |
 
 2. user_basic_info
    
