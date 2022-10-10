@@ -17,6 +17,20 @@
 }
 ```
 
+### 请求体格式错误
+
+例如，期望请求体是 JSON 格式，但解析 JSON 时出现错误，或缺少必要参数。
+
+> `400 Invalid Argument`
+
+```json
+{
+    "code": 1005,
+    "message": "INVALID_FORMAT",
+    "data": {}
+}
+```
+
 ### 未认证
 
 > `401 Unauthorized`
