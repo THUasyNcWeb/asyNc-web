@@ -27,7 +27,7 @@
    | :--- | :--- | :---------- |
    | id | AutoField | primary_key=true |
    | user_name | CharField | max_length=12 & unique=True |
-   | password | CharField | max_length=18 |
+   | password | CharField | max_length=40 |
 
 3. search_history
    
