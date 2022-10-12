@@ -1,4 +1,4 @@
-# Git 使用规范
+# 开发规范
 
 > 本规范应用于 2022-2023秋季学期软件工程课堂 asyNc 仓库
 
@@ -11,22 +11,33 @@
   - `asyNc-frontend`
   - `asyNc-backend`
   - `asyNc-crawler`
-  - ...
+  - `asyNc-db`
 
-3. `master` 与长期分支合并时需使用 `--no-ff` 参数，即不得使用 `fast-forward` 合并策略。
-
-    每个分支应实现单一特性或其工作，分支以功能命名，例如 `identifyUserInfo`；
+3. 每个子模块要求如下：
+   
+   - `master` 为稳定分支，至少每两周 `merge` 一次，建议每完成一个大功能 `merge` 一次
+   - 设置 `dev` 分支，该分支为长期分支，`master/dev` 合并需使用 `Merge Request`
+   - `dev` 分支下设置短期功能分支，命名要求：
+     - `feat-*`
+     - `fix-*`
+   - 短期分支与长期分支合并时需加入 `--no-ff` 选项
 
 4. 提交时需严格遵守 **Git Commit 规范**。
 
 5. 谨慎使用 `git add .` 以避免提交不必要的文件，如有需要请及时更新 `.gitignore`。
+
+6. 均需通过 `style-unit` 测试
+
+7. issue 粒度合理
+   
+   commit 粒度合理
   
 ## Git Commit 规范
 
 模板：
 
 ```shell
-<gitmoji> <type>[(scope)]: <description>
+<gitmoji> <type>[(scope)]: <description> asyNc/asyNc-web#x
 <BLANK LINE>
 [body]
 <BLANK LINE>
@@ -61,6 +72,7 @@
 - test: 添加/修改测试文件
 - chore: 改变构建流程，或者添加依赖库、工具等
 - revert: 回滚到上一个版本
+- merge: 合并分支
 
 [(Scope)]:
 - 用来提供附加信息，例如 (parse) 等
