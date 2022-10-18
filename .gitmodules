@@ -10,3 +10,6 @@
 [submodule "asyNc-backend"]
 	path = asyNc-backend
 	url = git@gitlab.secoder.net:asyNc/asyNc-backend.git
+[submodule "asyNc-search"]
+	path = asyNc-search
+	url = git@gitlab.secoder.net:asyNc/asyNc-search.git
