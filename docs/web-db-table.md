@@ -11,7 +11,7 @@
    | id | AutoField | primary_key=true & db_index=True |
    | news_url | URLField | unique=True |
    | media | CharField | max_length=20 |
-   | category | CharField | base_field=models.CharField(mex_length=30) & size=5 |
+   | category | ArrayField | base_field=models.CharField(mex_length=30) & size=5 |
    | tags | ArrayField | base_field=models.CharField(mex_length=30) & size=8 | 
    | title | CharField | max_length=200 |
    | description | TextField | |
