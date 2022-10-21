@@ -21,7 +21,7 @@
 
 例如，期望请求体是 JSON 格式，但解析 JSON 时出现错误，或缺少必要参数。
 
-> `400 Invalid Argument`
+> `400 Bad Request`
 
 ```json
 {
@@ -134,7 +134,7 @@
 
 #### 用户名已占用
 
-> `400 Invalid Argument`
+> `400 Bad Request`
 
 ```json
 {
@@ -146,7 +146,7 @@
 
 #### 用户名格式不合法
 
-> `400 Invalid Argument`
+> `400 Bad Request`
 
 ```json
 {
@@ -158,7 +158,7 @@
 
 #### 密码格式不合法
 
-> `400 Invalid Argument`
+> `400 Bad Request`
 
 ```json
 {
@@ -226,7 +226,7 @@
 
 #### 用户名或密码错误
 
-> `400 Invalid Argument`
+> `400 Bad Request`
 
 ```json
 {
@@ -286,7 +286,7 @@
 
 #### 原密码错误
 
-> `400 Invalid Argument`
+> `400 Bad Request`
 
 ```json
 {
@@ -298,7 +298,7 @@
 
 #### 新密码格式不合法
 
-> `400 Invalid Argument`
+> `400 Bad Request`
 
 ```json
 {
@@ -323,6 +323,8 @@
 后端接受到请求之后，先检验 token 是否有效，如果有效则返回相应新闻内容，是否按用户进行喜好筛选由后期决定。
 
 ### 响应
+
+> `200 OK`
 
 返回一个 JSON 格式的正文，包含新闻对象的数组。
 
@@ -364,36 +366,88 @@
 
 ## POST /search
 
-进行搜索，暂定为多关键字进行并搜索。
+进行搜索。
 
 ### 请求
 
-URL 参数：
+请求附带 JSON 格式的正文。
+样例：
 
-```shell
-keyword: array[string]
+```json
+{
+    "query": "Hello",
+    "page": 2
+}
 ```
 
-请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
+正文的 JSON 包含一个字典，字典的各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`query`|字符串|是|查询关键词|
+|`page`|整数|否|页码，正整数，默认为 1|
 
 ### 行为
 
-后端接受到请求 URL 之后，先检验是否过期，若过期则返回相应错误。
+后端接收到请求后，向搜索后端发送查询关键词的搜索请求，并返回指定页码的搜索结果，以及该搜索词的结果共有多少页。
+搜索结果应包含新闻正文中与搜索词相关的上下文，以及需要标红的关键词。
 
-若未过期，则解析 URL。若 URL 格式错误，则报错，否则返回对应新闻信息。
+一页定义为 10 条搜索结果，页码从 1 开始计数。
+若 `page` 不为正整数则应当报错，错误响应在下面定义。
+若 `page` 为正整数则总是正常响应，即使对应的页码并没有搜索结果也是如此。
+此时返回的新闻列表为空。
 
 ### 响应
 
-若未过期且 URL 解析无误，则返回码为 200，返回正文与 `POST all_news/` 相同，可参考上文。
+> `200 OK`
 
-若过期，则返回响应详见开头通用错误。
+返回一个 JSON 格式的正文，包含搜索结果的数组。
 
-若 URL解析有问题，返回码为 400 ，正文为
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {
+        "page_count": 15,
+        "news": [
+            {
+                "title": "Breaking News",
+                "media": "Foobar News",
+                "url": "https://breaking.news",
+                "pub_time": "2022-10-21T19:02:16.305Z",
+                "content": "BREAKING NEWS!!!",
+                "picture_url": "https://breaking.news/picture.png",
+                "keywords": ["breaking", "news"]
+            }
+        ]
+    }
+}
+```
+
+`page_count` 表示这个搜索词的结果一共有多少页。
+
+`news` 是一个数组，其中每个对象各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`title`|字符串|是|标题|
+|`media`|字符串|是|媒体|
+|`url`|字符串|是|新闻 URL|
+|`pub_time`|字符串|是|新闻发布时间|
+|`content`|字符串|是|新闻内容与关键词相关的上下文|
+|`picture_url`|字符串|否|图片 URL，若有|
+|`keywords`|字符串数组|是|需要标红的关键词|
+
+### 错误
+
+#### 页码不为正整数
+
+> `400 Bad Request`
 
 ```json
 {
     "code": 5,
-    "message": "Invalid URL"
+    "message": "INVALID_PAGE",
+    "data": {}
 }
 ```
-
