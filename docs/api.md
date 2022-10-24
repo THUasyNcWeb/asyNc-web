@@ -308,6 +308,88 @@
 }
 ```
 
+## POST /logout
+尝试登出该用户。
+
+### 请求
+
+请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
+
+不需要附带其他内容。
+
+### 行为
+
+后端接受到请求之后，先检验 `token` 是否有效，如有效，将该用户登出。
+
+### 响应
+
+#### 成功登出
+
+> `200 OK`
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {}
+}
+```
+
+### 错误
+
+#### 用户未登录
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 6,
+    "message": "NOT_LOGGED_IN",
+    "data": {}
+}
+```
+
+## POST /checklogin
+检查用户登陆状态。
+
+### 请求
+
+请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
+
+不需要附带其他内容。
+
+### 行为
+
+后端接受到请求之后，检验 `token` 是否有效，并返回登陆状态。
+
+### 响应
+
+#### 登录状态有效
+
+> `200 OK`
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {}
+}
+```
+
+### 错误
+
+#### 登陆状态失效
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 6,
+    "message": "NOT_LOGGED_IN",
+    "data": {}
+}
+```
+
 ## GET /all_news
 
 返回主页新闻。
@@ -454,87 +536,6 @@
 {
     "code": 5,
     "message": "INVALID_PAGE",
-    "data": {}
-}
-```
-## POST /logout
-尝试登出该用户。
-
-### 请求
-
-请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
-
-不需要附带其他内容。
-
-### 行为
-
-后端接受到请求之后，先检验 `token` 是否有效，如有效，将该用户登出。
-
-### 响应
-
-#### 登出登录
-
-> `200 OK`
-
-```json
-{
-    "code": 0,
-    "message": "SUCCESS",
-    "data": {}
-}
-```
-
-### 错误
-
-#### 用户未登录
-
-> `400 Bad Request`
-
-```json
-{
-    "code": 6,
-    "message": "NOT_LOGGED_IN",
-    "data": {}
-}
-```
-
-## POST /checklogin
-检查用户登陆状态。
-
-### 请求
-
-请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
-
-不需要附带其他内容。
-
-### 行为
-
-后端接受到请求之后，检验 `token` 是否有效，并返回登陆状态。
-
-### 响应
-
-#### 登录状态有效
-
-> `200 OK`
-
-```json
-{
-    "code": 0,
-    "message": "SUCCESS",
-    "data": {}
-}
-```
-
-### 错误
-
-#### 登陆状态失效
-
-> `400 Bad Request`
-
-```json
-{
-    "code": 6,
-    "message": "NOT_LOGGED_IN",
     "data": {}
 }
 ```
