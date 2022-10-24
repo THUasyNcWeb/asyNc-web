@@ -499,6 +499,11 @@
                 "pub_time": "2022-10-21T19:02:16.305Z",
                 "content": "BREAKING NEWS!!!",
                 "picture_url": "https://breaking.news/picture.png",
+                "title_keywords": [
+                    [1, 3],
+                    [7, 9],
+                    [10, 15]
+                ],
                 "keywords": [
                     [1, 3],
                     [7, 9],
@@ -522,9 +527,10 @@
 |`pub_time`|字符串|是|新闻发布时间|
 |`content`|字符串|是|新闻内容与关键词相关的上下文|
 |`picture_url`|字符串|否|图片 URL，若有|
+|`title_keywords`|数组|是|标题中需要标红的关键词位置|
 |`keywords`|数组|是|需要标红的关键词位置|
 
-其中 `keywords` 是一个数组，每个元素是一个包含两个整数的数组，为一个需要标红的关键词的位置，从 0 开始计数，左闭右开。
+其中 `title_keywords` 和 `keywords` 是一个数组，每个元素是一个包含两个整数的数组，为一个需要标红的关键词的位置，从 0 开始计数，左闭右开。
 
 ### 错误
 
