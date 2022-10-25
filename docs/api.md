@@ -339,12 +339,12 @@
 
 #### 用户未登录
 
-> `400 Bad Request`
+> `401 Unauthorized`
 
 ```json
 {
-    "code": 6,
-    "message": "NOT_LOGGED_IN",
+    "code": 1001,
+    "message": "UNAUTHORIZED",
     "data": {}
 }
 ```
@@ -380,12 +380,12 @@
 
 #### 登陆状态失效
 
-> `400 Bad Request`
+> `401 Unauthorized`
 
 ```json
 {
-    "code": 6,
-    "message": "NOT_LOGGED_IN",
+    "code": 1001,
+    "message": "UNAUTHORIZED",
     "data": {}
 }
 ```
