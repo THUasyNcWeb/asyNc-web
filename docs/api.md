@@ -308,6 +308,81 @@
 }
 ```
 
+## POST /modify_username
+
+修改用户名接口。
+
+### 请求
+
+请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
+
+请求正文样例：
+
+```json
+{
+    "old_user_name": "Alice",
+    "new_user_name": "Bob"
+}
+```
+
+正文的 JSON 包含一个字典，字典的各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`old_user_name`|字符串|是|旧用户名|
+|`new_user_name`|字符串|是|新用户名|
+
+### 行为
+
+后端接受到请求之后，先检验`token`是否合理。
+如果合理，则判断 `old_user_name` 是否是该用户的原本用户名。
+如果原用户名正确，则检验新用户名是否符合格式，如果符合格式则进行修改。
+原用户名的所有token将会全部过期，后端返回新token。
+
+### 响应
+
+#### 修改成功
+
+> `200 OK`
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {
+        "id": 1,
+        "user_name": "Bob",
+        "token": "SECRET_TOKEN"
+    }
+}
+```
+
+### 错误
+
+#### 原用户名错误
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 6,
+    "message": "WRONG_USERNAME",
+    "data": {}
+}
+```
+
+#### 新用户名格式不合法
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 7,
+    "message": "INVALID_USERNAME_FORMAT",
+    "data": {}
+}
+```
+
 ## POST /logout
 尝试登出该用户。
 
