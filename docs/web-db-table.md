@@ -11,13 +11,31 @@
    | id | AutoField | primary_key=true & db_index=True |
    | news_url | URLField | unique=True |
    | media | CharField | max_length=20 |
-   | category | ArrayField | base_field=models.CharField(mex_length=30) & size=5 |
+   | category | CharField | max_length=20 |
    | tags | ArrayField | base_field=models.CharField(mex_length=30) & size=8 | 
    | title | CharField | max_length=200 |
    | description | TextField | |
    | content | TextField | |
    | first_img_url | URLField | |
    | pub_time | DateTimeField | |
+
+   category 对应：
+
+   | Category | Name |
+   | :------: | :--: |
+   | \ | 要闻 |
+   | ent | 娱乐 |
+   | sports | 体育 |
+   | mil | 军事 |
+   | politics | 国际 |
+   | tech | 科技 |
+   | finance | 金融 |
+   | auto | 汽车 |
+   | game | 游戏 |
+   | women | 时尚 |
+   | health | 健康 |
+   | history | 历史 |
+   | edu | 教育 |
 
 2. user_basic_info
    
