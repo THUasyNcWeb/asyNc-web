@@ -695,3 +695,63 @@
     "data": {}
 }
 ```
+
+## POST /search/suggest
+
+获取搜索建议。
+
+### 请求
+
+请求附带 JSON 格式的正文。
+样例：
+
+```json
+{
+    "query": "Hello",
+    "include": [
+        "world",
+        "again"
+    ],
+    "exclude": [
+        "goodbye"
+    ]
+}
+```
+
+正文的 JSON 包含一个字典，字典的各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`query`|字符串|是|查询关键词|
+|`include`|数组|否|必含词|
+|`exclude`|数组|否|排除词|
+
+其中 `include` 与 `exclude` 为字符串数组，包含需要包括在内/排除在外的词。
+
+### 行为
+
+后端接收到请求后，向搜索后端发送获取搜索建议的请求，并返回一个搜索建议列表。
+
+### 响应
+
+> `200 OK`
+
+返回一个 JSON 格式的正文，包含搜索建议的数组。
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {
+        "suggestions": [
+            "Hello world again!",
+            "Hello world again and again!"
+            "Hello world again, again and again!"
+        ]
+    }
+}
+```
+
+### 错误
+
+此 API 不应该返回错误。
