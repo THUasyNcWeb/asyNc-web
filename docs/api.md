@@ -548,7 +548,9 @@
                 {
                     "title": "Breaking News",
                     "url": "https://breaking.news",
-                    "picture_url": "https://breaking.news/picture.png"
+                    "picture_url": "https://breaking.news/picture.png",
+                    "media": "Foobar News",
+                    "pub_time": "2022-10-21T19:02:16.305Z",          
                 }
             ]
         }
@@ -575,6 +577,8 @@
 |`title`|字符串|是|新闻标题|
 |`url`|字符串|是|新闻网址|
 |`picture_url`|字符串|允许为null|新闻图片 URL|
+|`media`|字符串|是|媒体|
+|`pub_time`|字符串|是|新闻发布时间|
 
 ### 错误
 
