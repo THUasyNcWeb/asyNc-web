@@ -597,7 +597,14 @@
 ```json
 {
     "query": "Hello",
-    "page": 2
+    "page": 2,
+    "include": [
+        "world",
+        "again"
+    ],
+    "exclude": [
+        "goodbye"
+    ]
 }
 ```
 
@@ -607,6 +614,10 @@
 |-|-|-|-|
 |`query`|字符串|是|查询关键词|
 |`page`|整数|否|页码，正整数，默认为 1|
+|`include`|数组|否|必含词|
+|`exclude`|数组|否|排除词|
+
+其中 `include` 与 `exclude` 为字符串数组，包含需要包括在内/排除在外的词。
 
 ### 行为
 
