@@ -525,19 +525,7 @@
 
 请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
 
-请求正文样例：
-
-```json
-{
-    "category": "ent"
-}
-```
-
-正文的 JSON 包含一个字典，字典的各字段含义如下：
-
-|字段|类型|必选|含义|
-|-|-|-|-|
-|`category`|字符串|是|新闻类别|
+无需正文
 
 ### 行为
 
@@ -555,31 +543,38 @@
     "message": "SUCCESS",
     "data": [
         {
-            "title": "Breaking News",
-            "url": "https://breaking.news",
-            "category": "breaking",
-            "priority": 1,
-            "picture_url": "https://breaking.news/picture.png"
+            category:"科技",
+            news:[
+                {
+                    "title": "Breaking News",
+                    "url": "https://breaking.news",
+                    "picture_url": "https://breaking.news/picture.png"
+                }
+            ]
         }
+        
     ]
 }
 ```
 
-其中 `data` 是一个数组，其中每个对象各字段含义如下：
+其中
+
+`data`是一个数组，其中每个对象各字段含义如下：
 
 |字段|类型|必选|含义|
 |-|-|-|-|
+|`category`|字符串|是|新闻类别|
+|`news`|数组|是|新闻内容|
+
+对于爬虫有明确分类的类别（如科技、生活），返回其对应类别下的新闻，每一个类别新闻条数不超过200.`data`的元素数目与爬虫数据库中新闻类别种数相同。
+
+`news` 是一个数组，其中每个对象各字段含义如下：
+
+|字段|类型|必选|含义|
+|:-|-|-|-|
 |`title`|字符串|是|新闻标题|
 |`url`|字符串|是|新闻网址|
-|`category`|字符串|是|新闻类别|
-|`priority`|整数|是|新闻优先级|
-|`picture_url`|字符串|允许为 `null`|新闻图片 URL|
-
-其中 `priority` 为新闻的优先级，在前端以字号大小加以区分。
-现在认为优先级分三类，1 代表最高级，2 代表次高级，3 代表一般级。
-初步认为仅在“热点”这一类别中有最高级的新闻，整个正文中有且仅有一条最高级。
-"热点"中次高级数目不限，其他类别次高级新闻为 2 条。
-所有类别的一般级新闻不限。
+|`picture_url`|字符串|允许为null|新闻图片 URL|
 
 ### 错误
 
