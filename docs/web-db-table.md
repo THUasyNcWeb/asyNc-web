@@ -18,6 +18,7 @@
    | content | TextField | |
    | first_img_url | URLField | |
    | pub_time | DateTimeField | |
+   | comments | Integer | |
 
    category 对应：
 
@@ -29,6 +30,7 @@
    | mil | 军事 |
    | politics | 国际 |
    | tech | 科技 |
+   | social | 社会 |
    | finance | 金融 |
    | auto | 汽车 |
    | game | 游戏 |
