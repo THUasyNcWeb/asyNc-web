@@ -50,6 +50,8 @@
    | password | CharField | max_length=40 |
    | signature | CharField | max_length=200 & blank=True |
    | tags | DictField | allow_empty=True |
+   | mail | CharField | max_length=100 & blank=True |
+   | avatar | TextField | blank=True |
 
 3. search_history
    

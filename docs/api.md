@@ -498,7 +498,9 @@
                 "C++",
                 "中年",
                 "アニメ"
-            ]
+            ],
+            "mail": "waifu@diffusion.com",
+            "avatar": "data:image/bmp;base64,Qk0+AgAAAAAAAD4AAAAoAAAAQAAAAEAAAAABAAEAAAAAAAACAAB0EgAAdBIAAAAAAAAAAAAAAAAAAP///wD/////////////////////////D+H///////n//z//////7///5/////+////5/////n/////////9/////7////P/////////77oAALnP///fsgAQnM///75wAAg9b///ePgACH6P//7y8AAAPv///ubgAAg8///9z0AAAA37///fgAAAA/3/+5/AAAAH/j//v+AAAA//f/+/8AAAD/+////4AAAf/7//f/wHgD////9wfh/gf//f/+//P/D/////n////+P/v/+f/////P+////////+f3////974H9/f////HOHv7z////zX/Pfg////+d//e8/////7v/+9////fff/////////8///tv///7vPf/X2////14bV/v//////9N3+7v/////73/b+//////ub5r7/////+57kvv/////7gPm+//////vP37z/////+/fXvP//////+d+9//////39//3//////f//+f/////+///7//////7///P//////3//5///////v//v///////f/5///////+/+P///////+fD/////////D///////////////////////////////////////////////////////////////////////////////////////////////////////////////w==",
         }
     ]
 }
@@ -512,6 +514,8 @@
 |`user_name`|字符串|是|用户名|
 |`signature`|字符串|是|用户签名|
 |`tags`|字符串列表|是|用户标签|
+|`mail`|字符串|是|用户邮箱|
+|`avatar`|字符串|是|用户头像|
 
 ### 错误
 
@@ -550,7 +554,7 @@
                     "url": "https://breaking.news",
                     "picture_url": "https://breaking.news/picture.png",
                     "media": "Foobar News",
-                    "pub_time": "2022-10-21T19:02:16.305Z",          
+                    "pub_time": "2022-10-21T19:02:16.305Z",
                 }
             ]
         }
