@@ -465,6 +465,100 @@
 }
 ```
 
+## POST /user_info
+
+添加用户信息。
+
+### 请求
+
+请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
+
+
+请求正文样例：
+
+```json
+{
+    "signature": "This is my signature.",
+    "avatar": "data:image/bmp;base64,Qk0+AgAAAAAAAD4AAAAoAAAAQAAAAEAAAAABAAEAAAAAAAACAAB0EgAAdBIAAAAAAAAAAAAAAAAAAP///wD/////////////////////////D+H///////n//z//////7///5/////+////5/////n/////////9/////7////P/////////77oAALnP///fsgAQnM///75wAAg9b///ePgACH6P//7y8AAAPv///ubgAAg8///9z0AAAA37///fgAAAA/3/+5/AAAAH/j//v+AAAA//f/+/8AAAD/+////4AAAf/7//f/wHgD////9wfh/gf//f/+//P/D/////n////+P/v/+f/////P+////////+f3////974H9/f////HOHv7z////zX/Pfg////+d//e8/////7v/+9////fff/////////8///tv///7vPf/X2////14bV/v//////9N3+7v/////73/b+//////ub5r7/////+57kvv/////7gPm+//////vP37z/////+/fXvP//////+d+9//////39//3//////f//+f/////+///7//////7///P//////3//5///////v//v///////f/5///////+/+P///////+fD/////////D///////////////////////////////////////////////////////////////////////////////////////////////////////////////w==",
+    "mail": "waifu@diffusion.com"
+}
+```
+
+正文的 JSON 包含一个字典，字典的各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`signature`|字符串|否|用户签名|
+|`mail`|字符串|否|用户邮箱|
+|`avatar`|字符串|否|用户头像|
+
+请注意，所有字段均是选填。
+
+### 行为
+
+后端接受到请求之后，先检验 token 是否有效，如果有效更新相应内容。
+
+> `200 OK`
+
+返回一个 JSON 格式的正文，包含更新后的用户信息。
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {
+        "id": 1,
+        "user_name": "Bob",
+        "signature": "This is my signature.",
+        "tags": [
+            "C++",
+            "中年",
+            "アニメ"
+        ],
+        "mail": "waifu@diffusion.com",
+        "avatar": "data:image/bmp;base64,Qk0+AgAAAAAAAD4AAAAoAAAAQAAAAEAAAAABAAEAAAAAAAACAAB0EgAAdBIAAAAAAAAAAAAAAAAAAP///wD/////////////////////////D+H///////n//z//////7///5/////+////5/////n/////////9/////7////P/////////77oAALnP///fsgAQnM///75wAAg9b///ePgACH6P//7y8AAAPv///ubgAAg8///9z0AAAA37///fgAAAA/3/+5/AAAAH/j//v+AAAA//f/+/8AAAD/+////4AAAf/7//f/wHgD////9wfh/gf//f/+//P/D/////n////+P/v/+f/////P+////////+f3////974H9/f////HOHv7z////zX/Pfg////+d//e8/////7v/+9////fff/////////8///tv///7vPf/X2////14bV/v//////9N3+7v/////73/b+//////ub5r7/////+57kvv/////7gPm+//////vP37z/////+/fXvP//////+d+9//////39//3//////f//+f/////+///7//////7///P//////3//5///////v//v///////f/5///////+/+P///////+fD/////////D///////////////////////////////////////////////////////////////////////////////////////////////////////////////w==",
+    }
+}
+```
+
+其中 `data` 是一个数组，其中每个对象各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`id`|整数|是|用户 ID|
+|`user_name`|字符串|是|用户名|
+|`signature`|字符串|是|用户签名|
+|`tags`|字符串列表|是|用户标签|
+|`mail`|字符串|是|用户邮箱|
+|`avatar`|字符串|是|用户头像|
+
+### 错误
+
+#### 登陆状态失效
+
+> `401 Unauthorized`
+
+```json
+{
+    "code": 1001,
+    "message": "UNAUTHORIZED",
+    "data": {}
+}
+```
+
+#### 数据格式错误或不合法
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 8,
+    "message": "POST_DATA_FORMAT_ERROR",
+    "data": {}
+}
+```
+
+
 ## GET /user_info
 
 返回用户信息。
@@ -483,24 +577,24 @@
 
 > `200 OK`
 
-返回一个 JSON 格式的正文，包含用户签名与用户标签。
+返回一个 JSON 格式的正文，包含用户信息。
 
 ```json
 {
     "code": 0,
     "message": "SUCCESS",
-    "data": [
-        {
-            "id": 1,
-            "user_name": "Bob",
-            "signature": "This is my signature.",
-            "tags": [
-                "C++",
-                "中年",
-                "アニメ"
-            ]
-        }
-    ]
+    "data": {
+        "id": 1,
+        "user_name": "Bob",
+        "signature": "This is my signature.",
+        "tags": [
+            "C++",
+            "中年",
+            "アニメ"
+        ],
+        "mail": "waifu@diffusion.com",
+        "avatar": "data:image/bmp;base64,Qk0+AgAAAAAAAD4AAAAoAAAAQAAAAEAAAAABAAEAAAAAAAACAAB0EgAAdBIAAAAAAAAAAAAAAAAAAP///wD/////////////////////////D+H///////n//z//////7///5/////+////5/////n/////////9/////7////P/////////77oAALnP///fsgAQnM///75wAAg9b///ePgACH6P//7y8AAAPv///ubgAAg8///9z0AAAA37///fgAAAA/3/+5/AAAAH/j//v+AAAA//f/+/8AAAD/+////4AAAf/7//f/wHgD////9wfh/gf//f/+//P/D/////n////+P/v/+f/////P+////////+f3////974H9/f////HOHv7z////zX/Pfg////+d//e8/////7v/+9////fff/////////8///tv///7vPf/X2////14bV/v//////9N3+7v/////73/b+//////ub5r7/////+57kvv/////7gPm+//////vP37z/////+/fXvP//////+d+9//////39//3//////f//+f/////+///7//////7///P//////3//5///////v//v///////f/5///////+/+P///////+fD/////////D///////////////////////////////////////////////////////////////////////////////////////////////////////////////w==",
+    }
 }
 ```
 
@@ -512,6 +606,8 @@
 |`user_name`|字符串|是|用户名|
 |`signature`|字符串|是|用户签名|
 |`tags`|字符串列表|是|用户标签|
+|`mail`|字符串|是|用户邮箱|
+|`avatar`|字符串|是|用户头像|
 
 ### 错误
 
