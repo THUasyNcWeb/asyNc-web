@@ -236,7 +236,7 @@
 }
 ```
 
-## POST /modify_password
+## POST /modifypassword
 
 修改密码接口。
 
@@ -308,7 +308,7 @@
 }
 ```
 
-## POST /modify_username
+## POST /modifyusername
 
 修改用户名接口。
 
@@ -465,7 +465,7 @@
 }
 ```
 
-## POST /user_info
+## POST /userinfo
 
 添加用户信息。
 
@@ -559,7 +559,7 @@
 ```
 
 
-## GET /user_info
+## GET /userinfo
 
 返回用户信息。
 
@@ -613,7 +613,7 @@
 
 本 API 不应该出错。
 
-## GET /all_news
+## GET /allnews
 
 返回主页新闻。
 
@@ -626,7 +626,7 @@
 示例：
 
 ```shell
-"/all_news?category=home"
+"/allnews?category=home"
 ```
 
 现在支持的新闻类别暂定为`home、sport、tech、game、health、fashion、ent`等内容，详见`asyNc-web/dics/web-db`
