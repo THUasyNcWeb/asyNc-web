@@ -390,6 +390,85 @@
 }
 ```
 
+## POST /modifyavatar
+
+修改用户头像。
+
+### 请求
+
+请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
+
+请求正文form-data样例：
+
+```form-data
+    filename: bin_file
+```
+
+各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`filename`|字符串|是|文件名|
+|`bin_file`|二进制文件|是|二进制头像文件|
+
+### 行为
+
+后端接受到请求之后，先检验 token 是否有效。
+
+如果有效。从`token`中解码出对应的用户名，修改该用户的头像。
+
+### 响应
+
+#### 登录状态有效
+
+> `200 OK`
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {
+        "id": 1,
+        "user_name": "Bob",
+        "signature": "This is my signature.",
+        "tags": [
+            "C++",
+            "中年",
+            "アニメ"
+        ],
+        "mail": "waifu@diffusion.com",
+        "avatar": "data:image/bmp;base64,Qk0+AgAAAAAAAD4AAAAoAAAAQAAAAEAAAAABAAEAAAAAAAACAAB0EgAAdBIAAAAAAAAAAAAAAAAAAP///wD/////////////////////////D+H///////n//z//////7///5/////+////5/////n/////////9/////7////P/////////77oAALnP///fsgAQnM///75wAAg9b///ePgACH6P//7y8AAAPv///ubgAAg8///9z0AAAA37///fgAAAA/3/+5/AAAAH/j//v+AAAA//f/+/8AAAD/+////4AAAf/7//f/wHgD////9wfh/gf//f/+//P/D/////n////+P/v/+f/////P+////////+f3////974H9/f////HOHv7z////zX/Pfg////+d//e8/////7v/+9////fff/////////8///tv///7vPf/X2////14bV/v//////9N3+7v/////73/b+//////ub5r7/////+57kvv/////7gPm+//////vP37z/////+/fXvP//////+d+9//////39//3//////f//+f/////+///7//////7///P//////3//5///////v//v///////f/5///////+/+P///////+fD/////////D///////////////////////////////////////////////////////////////////////////////////////////////////////////////w==",
+        "token": "SECRET_TOKEN"
+    }
+}
+```
+
+### 错误
+
+#### 登陆状态失效
+
+> `401 Unauthorized`
+
+```json
+{
+    "code": 1001,
+    "message": "UNAUTHORIZED",
+    "data": {}
+}
+```
+
+#### 数据格式错误或不合法
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 8,
+    "message": "POST_DATA_FORMAT_ERROR",
+    "data": {}
+}
+```
+
 ## POST /modifyuserinfo
 
 修改用户信息。
