@@ -308,81 +308,6 @@
 }
 ```
 
-## POST /modifyusername
-
-修改用户名接口。
-
-### 请求
-
-请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
-
-请求正文样例：
-
-```json
-{
-    "old_user_name": "Alice",
-    "new_user_name": "Bob"
-}
-```
-
-正文的 JSON 包含一个字典，字典的各字段含义如下：
-
-|字段|类型|必选|含义|
-|-|-|-|-|
-|`old_user_name`|字符串|是|旧用户名|
-|`new_user_name`|字符串|是|新用户名|
-
-### 行为
-
-后端接受到请求之后，先检验`token`是否合理。
-如果合理，则判断 `old_user_name` 是否是该用户的原本用户名。
-如果原用户名正确，则检验新用户名是否符合格式，如果符合格式则进行修改。
-原用户名的所有token将会全部过期，后端返回新token。
-
-### 响应
-
-#### 修改成功
-
-> `200 OK`
-
-```json
-{
-    "code": 0,
-    "message": "SUCCESS",
-    "data": {
-        "id": 1,
-        "user_name": "Bob",
-        "token": "SECRET_TOKEN"
-    }
-}
-```
-
-### 错误
-
-#### 原用户名错误
-
-> `400 Bad Request`
-
-```json
-{
-    "code": 6,
-    "message": "WRONG_USERNAME",
-    "data": {}
-}
-```
-
-#### 新用户名格式不合法
-
-> `400 Bad Request`
-
-```json
-{
-    "code": 7,
-    "message": "INVALID_USERNAME_FORMAT",
-    "data": {}
-}
-```
-
 ## POST /logout
 尝试登出该用户。
 
@@ -465,9 +390,9 @@
 }
 ```
 
-## POST /userinfo
+## POST /modifyuserinfo
 
-添加用户信息。
+修改用户信息。
 
 ### 请求
 
@@ -478,6 +403,8 @@
 
 ```json
 {
+    "old_user_name": "Alice",
+    "new_user_name": "Bob",
     "signature": "This is my signature.",
     "avatar": "data:image/bmp;base64,Qk0+AgAAAAAAAD4AAAAoAAAAQAAAAEAAAAABAAEAAAAAAAACAAB0EgAAdBIAAAAAAAAAAAAAAAAAAP///wD/////////////////////////D+H///////n//z//////7///5/////+////5/////n/////////9/////7////P/////////77oAALnP///fsgAQnM///75wAAg9b///ePgACH6P//7y8AAAPv///ubgAAg8///9z0AAAA37///fgAAAA/3/+5/AAAAH/j//v+AAAA//f/+/8AAAD/+////4AAAf/7//f/wHgD////9wfh/gf//f/+//P/D/////n////+P/v/+f/////P+////////+f3////974H9/f////HOHv7z////zX/Pfg////+d//e8/////7v/+9////fff/////////8///tv///7vPf/X2////14bV/v//////9N3+7v/////73/b+//////ub5r7/////+57kvv/////7gPm+//////vP37z/////+/fXvP//////+d+9//////39//3//////f//+f/////+///7//////7///P//////3//5///////v//v///////f/5///////+/+P///////+fD/////////D///////////////////////////////////////////////////////////////////////////////////////////////////////////////w==",
     "mail": "waifu@diffusion.com"
@@ -489,18 +416,28 @@
 |字段|类型|必选|含义|
 |-|-|-|-|
 |`signature`|字符串|否|用户签名|
+|`old_user_name`|字符串|是|旧用户名|
+|`new_user_name`|字符串|是|新用户名|
 |`mail`|字符串|否|用户邮箱|
 |`avatar`|字符串|否|用户头像|
 
-请注意，所有字段均是选填。
-
 ### 行为
 
-后端接受到请求之后，先检验 token 是否有效，如果有效更新相应内容。
+后端接受到请求之后，先检验 token 是否有效。
+
+如果有效。从`token`中解码出对应的用户名，并与请求体中的`old_user_name`进行比较。
+
+如果原用户名正确，则检验新用户名是否符合格式，如果符合格式则更新用户信息。
+
+原用户名的所有token将会全部过期，后端返回一个 JSON 格式的正文，包含更新后的用户信息与`token`。
+
+理论上`tags`应当与修改前相同。
+
+### 响应
+
+#### 登录状态有效
 
 > `200 OK`
-
-返回一个 JSON 格式的正文，包含更新后的用户信息。
 
 ```json
 {
@@ -517,6 +454,7 @@
         ],
         "mail": "waifu@diffusion.com",
         "avatar": "data:image/bmp;base64,Qk0+AgAAAAAAAD4AAAAoAAAAQAAAAEAAAAABAAEAAAAAAAACAAB0EgAAdBIAAAAAAAAAAAAAAAAAAP///wD/////////////////////////D+H///////n//z//////7///5/////+////5/////n/////////9/////7////P/////////77oAALnP///fsgAQnM///75wAAg9b///ePgACH6P//7y8AAAPv///ubgAAg8///9z0AAAA37///fgAAAA/3/+5/AAAAH/j//v+AAAA//f/+/8AAAD/+////4AAAf/7//f/wHgD////9wfh/gf//f/+//P/D/////n////+P/v/+f/////P+////////+f3////974H9/f////HOHv7z////zX/Pfg////+d//e8/////7v/+9////fff/////////8///tv///7vPf/X2////14bV/v//////9N3+7v/////73/b+//////ub5r7/////+57kvv/////7gPm+//////vP37z/////+/fXvP//////+d+9//////39//3//////f//+f/////+///7//////7///P//////3//5///////v//v///////f/5///////+/+P///////+fD/////////D///////////////////////////////////////////////////////////////////////////////////////////////////////////////w==",
+        "token": "SECRET_TOKEN"
     }
 }
 ```
@@ -531,6 +469,7 @@
 |`tags`|字符串列表|是|用户标签|
 |`mail`|字符串|是|用户邮箱|
 |`avatar`|字符串|是|用户头像|
+|`token`|字符串|是|用于验证的令牌|
 
 ### 错误
 
@@ -542,6 +481,30 @@
 {
     "code": 1001,
     "message": "UNAUTHORIZED",
+    "data": {}
+}
+```
+
+#### 原用户名错误
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 6,
+    "message": "WRONG_USERNAME",
+    "data": {}
+}
+```
+
+#### 新用户名格式不合法
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 7,
+    "message": "INVALID_USERNAME_FORMAT",
     "data": {}
 }
 ```
