@@ -1042,15 +1042,35 @@
 
 > `200 OK`
 
-返回一个 JSON 格式的正文，其中不携带数据。
+返回一个 JSON 格式的正文，其中包含一个新闻数组，为历史记录的首页。
 
 ```json
 {
     "code": 0,
     "message": "SUCCESS",
-    "data": {}
+    "data": [
+        {
+            "id": 114,
+            "title": "Breaking News",
+            "media": "Foobar News",
+            "url": "https://breaking.news",
+            "pub_time": "2022-10-21T19:02:16.305Z",
+            "picture_url": "https://breaking.news/picture.png"
+        }
+    ]
 }
 ```
+
+`data` 是一个至多包含 10 条新闻的数组，其中每个对象各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`id`|整数|是|新闻 ID|
+|`title`|字符串|是|标题|
+|`media`|字符串|是|媒体|
+|`url`|字符串|是|新闻 URL|
+|`pub_time`|字符串|是|新闻发布时间|
+|`picture_url`|字符串|否|图片 URL，若有|
 
 ### 错误
 
