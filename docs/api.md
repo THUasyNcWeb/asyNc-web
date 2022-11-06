@@ -691,6 +691,7 @@
     "message": "SUCCESS",
     "data": [
         {
+            "id": 514,
             "title": "Breaking News",
             "url": "https://breaking.news",
             "picture_url": "https://breaking.news/picture.png",
@@ -705,6 +706,7 @@
 
 |字段|类型|必选|含义|
 |:-|-|-|-|
+|`id`|整数|是|新闻 ID|
 |`title`|字符串|是|新闻标题|
 |`url`|字符串|是|新闻网址|
 |`picture_url`|字符串|允许为null|新闻图片 URL|
@@ -773,6 +775,7 @@
         "page_count": 15,
         "news": [
             {
+                "id": 114,
                 "title": "Breaking News",
                 "media": "Foobar News",
                 "url": "https://breaking.news",
@@ -801,6 +804,7 @@
 
 |字段|类型|必选|含义|
 |-|-|-|-|
+|`id`|整数|是|新闻 ID|
 |`title`|字符串|是|标题|
 |`media`|字符串|是|媒体|
 |`url`|字符串|是|新闻 URL|
@@ -886,13 +890,59 @@
 
 此 API 不应该返回错误。
 
+## POST /click
 
-
-## POST/favorites
+记录用户点击行为。
 
 ### 请求
 
-请求需要在请求头中携带 `Authorization` 字段，记录 `token` 值。
+在请求头中携带 `Authorization` 字段来记录 token，可通过 token 来确定用户身份。
+
+请求需要携带 query 参数，参数名称为 `id` 代表用户点击的新闻 ID。
+
+示例：
+
+```
+/click?id=191
+```
+
+### 行为
+
+后端可以根据用户点击的新闻来进行用户标签、搜索历史等功能的更新。
+
+### 响应
+
+> `200 OK`
+
+返回一个 JSON 格式的正文，其中不携带数据。
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {}
+}
+```
+
+### 错误
+
+#### 新闻 ID 不存在
+
+> `404 Not Found`
+
+```json
+{
+    "code": 9,
+    "message": "NEWS_NOT_FOUND",
+    "data": {}
+}
+```
+
+## POST /favorites
+
+### 请求
+
+在请求头中携带 `Authorization` 字段来记录 token，可通过 token 来确定用户身份。
 
 附带JSON格式的正文
 
