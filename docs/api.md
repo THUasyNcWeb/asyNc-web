@@ -1066,19 +1066,216 @@
 }
 ```
 
-## POST /favorites
+## GET /readlater
+
+获取用户的稍后再看列表。
 
 ### 请求
 
 在请求头中携带 `Authorization` 字段来记录 token，可通过 token 来确定用户身份。
 
-附带JSON格式的正文
+请求需要携带 query 参数，参数 `page` 代表需要获取的稍后再看列表的页码。
 
-样例
+示例：
+
+```
+/readlater?page=5
+```
+
+### 行为
+
+后端接收到请求后，返回指定页码的用户稍后再看列表。
+
+一页定义为 10 条新闻，页码从 1 开始计数。
+若 `page` 不为正整数则应当报错，错误响应在下面定义。
+若 `page` 为正整数则总是正常响应，即使对应的页码并没有稍后再看列表也是如此。
+此时返回的新闻列表为空。
+
+### 响应
+
+> `200 OK`
+
+返回一个 JSON 格式的正文，包含新闻的数组。
 
 ```json
 {
-    
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {
+        "page_count": 15,
+        "news": [
+            {
+                "id": 114,
+                "title": "Breaking News",
+                "media": "Foobar News",
+                "url": "https://breaking.news",
+                "pub_time": "2022-10-21T19:02:16.305Z",
+                "picture_url": "https://breaking.news/picture.png"
+            }
+        ]
+    }
 }
 ```
 
+`page_count` 表示稍后再看列表一共有多少页。
+
+`news` 是一个数组，其中每个对象各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`id`|整数|是|新闻 ID|
+|`title`|字符串|是|标题|
+|`media`|字符串|是|媒体|
+|`url`|字符串|是|新闻 URL|
+|`pub_time`|字符串|是|新闻发布时间|
+|`picture_url`|字符串|否|图片 URL，若有|
+
+### 错误
+
+#### 页码不为正整数
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 5,
+    "message": "INVALID_PAGE",
+    "data": {}
+}
+```
+
+## POST /readlater
+
+将新闻加入稍后再看列表。
+
+### 请求
+
+在请求头中携带 `Authorization` 字段来记录 token，可通过 token 来确定用户身份。
+
+请求需要携带 query 参数，参数 `id` 代表用户点击的新闻 ID。
+
+示例：
+
+```
+/readlater?id=191
+```
+
+### 行为
+
+若新闻 ID 存在，将其加入稍后再看列表。
+
+### 响应
+
+> `200 OK`
+
+返回一个 JSON 格式的正文，其中包含一个新闻数组，为稍后再看列表的首页。
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": [
+        {
+            "id": 114,
+            "title": "Breaking News",
+            "media": "Foobar News",
+            "url": "https://breaking.news",
+            "pub_time": "2022-10-21T19:02:16.305Z",
+            "picture_url": "https://breaking.news/picture.png"
+        }
+    ]
+}
+```
+
+`data` 是一个至多包含 10 条新闻的数组，其中每个对象各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`id`|整数|是|新闻 ID|
+|`title`|字符串|是|标题|
+|`media`|字符串|是|媒体|
+|`url`|字符串|是|新闻 URL|
+|`pub_time`|字符串|是|新闻发布时间|
+|`picture_url`|字符串|否|图片 URL，若有|
+
+### 错误
+
+#### 新闻 ID 不存在
+
+> `404 Not Found`
+
+```json
+{
+    "code": 9,
+    "message": "NEWS_NOT_FOUND",
+    "data": {}
+}
+```
+
+## DELETE /readlater
+
+删除某一条稍后再看新闻。
+
+### 请求
+
+在请求头中携带 `Authorization` 字段来记录 token，可通过 token 来确定用户身份。
+
+请求需要携带 query 参数，参数 `id` 代表需要删除的稍后再看的新闻 ID。
+
+示例：
+
+```
+/readlater?id=981
+```
+
+### 行为
+
+若新闻 ID 存在，则将其从稍后再看列表中删去。
+
+### 响应
+
+> `200 OK`
+
+返回一个 JSON 格式的正文，其中包含一个新闻数组，为稍后再看列表的首页。
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": [
+        {
+            "id": 114,
+            "title": "Breaking News",
+            "media": "Foobar News",
+            "url": "https://breaking.news",
+            "pub_time": "2022-10-21T19:02:16.305Z",
+            "picture_url": "https://breaking.news/picture.png"
+        }
+    ]
+}
+```
+
+`data` 是一个至多包含 10 条新闻的数组，其中每个对象各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`id`|整数|是|新闻 ID|
+|`title`|字符串|是|标题|
+|`media`|字符串|是|媒体|
+|`url`|字符串|是|新闻 URL|
+|`pub_time`|字符串|是|新闻发布时间|
+|`picture_url`|字符串|否|图片 URL，若有|
+
+### 错误
+
+#### 新闻 ID 不存在
+
+> `404 Not Found`
+
+```json
+{
+    "code": 9,
+    "message": "NEWS_NOT_FOUND",
+    "data": {}
+}
+```
