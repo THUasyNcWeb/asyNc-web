@@ -1152,7 +1152,7 @@
 
 在请求头中携带 `Authorization` 字段来记录 token，可通过 token 来确定用户身份。
 
-请求需要携带 query 参数，参数 `id` 代表用户点击的新闻 ID。
+请求需要携带 query 参数，参数 `id` 代表加入稍后再看列表的新闻 ID。
 
 示例：
 
@@ -1237,6 +1237,220 @@
 > `200 OK`
 
 返回一个 JSON 格式的正文，其中包含一个新闻数组，为稍后再看列表的首页。
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": [
+        {
+            "id": 114,
+            "title": "Breaking News",
+            "media": "Foobar News",
+            "url": "https://breaking.news",
+            "pub_time": "2022-10-21T19:02:16.305Z",
+            "picture_url": "https://breaking.news/picture.png"
+        }
+    ]
+}
+```
+
+`data` 是一个至多包含 10 条新闻的数组，其中每个对象各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`id`|整数|是|新闻 ID|
+|`title`|字符串|是|标题|
+|`media`|字符串|是|媒体|
+|`url`|字符串|是|新闻 URL|
+|`pub_time`|字符串|是|新闻发布时间|
+|`picture_url`|字符串|否|图片 URL，若有|
+
+### 错误
+
+#### 新闻 ID 不存在
+
+> `404 Not Found`
+
+```json
+{
+    "code": 9,
+    "message": "NEWS_NOT_FOUND",
+    "data": {}
+}
+```
+
+## GET /favorites
+
+获取用户的收藏夹。
+
+### 请求
+
+在请求头中携带 `Authorization` 字段来记录 token，可通过 token 来确定用户身份。
+
+请求需要携带 query 参数，参数 `page` 代表需要获取的收藏夹的页码。
+
+示例：
+
+```
+/favorites?page=5
+```
+
+### 行为
+
+后端接收到请求后，返回指定页码的用户收藏夹。
+
+一页定义为 10 条新闻，页码从 1 开始计数。
+若 `page` 不为正整数则应当报错，错误响应在下面定义。
+若 `page` 为正整数则总是正常响应，即使对应的页码并没有收藏夹也是如此。
+此时返回的新闻列表为空。
+
+### 响应
+
+> `200 OK`
+
+返回一个 JSON 格式的正文，包含新闻的数组。
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {
+        "page_count": 15,
+        "news": [
+            {
+                "id": 114,
+                "title": "Breaking News",
+                "media": "Foobar News",
+                "url": "https://breaking.news",
+                "pub_time": "2022-10-21T19:02:16.305Z",
+                "picture_url": "https://breaking.news/picture.png"
+            }
+        ]
+    }
+}
+```
+
+`page_count` 表示收藏夹一共有多少页。
+
+`news` 是一个数组，其中每个对象各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`id`|整数|是|新闻 ID|
+|`title`|字符串|是|标题|
+|`media`|字符串|是|媒体|
+|`url`|字符串|是|新闻 URL|
+|`pub_time`|字符串|是|新闻发布时间|
+|`picture_url`|字符串|否|图片 URL，若有|
+
+### 错误
+
+#### 页码不为正整数
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 5,
+    "message": "INVALID_PAGE",
+    "data": {}
+}
+```
+
+## POST /favorites
+
+将新闻加入收藏夹。
+
+### 请求
+
+在请求头中携带 `Authorization` 字段来记录 token，可通过 token 来确定用户身份。
+
+请求需要携带 query 参数，参数 `id` 代表加入收藏夹的新闻 ID。
+
+示例：
+
+```
+/favorites?id=191
+```
+
+### 行为
+
+若新闻 ID 存在，将其加入收藏夹。
+
+### 响应
+
+> `200 OK`
+
+返回一个 JSON 格式的正文，其中包含一个新闻数组，为收藏夹的首页。
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": [
+        {
+            "id": 114,
+            "title": "Breaking News",
+            "media": "Foobar News",
+            "url": "https://breaking.news",
+            "pub_time": "2022-10-21T19:02:16.305Z",
+            "picture_url": "https://breaking.news/picture.png"
+        }
+    ]
+}
+```
+
+`data` 是一个至多包含 10 条新闻的数组，其中每个对象各字段含义如下：
+
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`id`|整数|是|新闻 ID|
+|`title`|字符串|是|标题|
+|`media`|字符串|是|媒体|
+|`url`|字符串|是|新闻 URL|
+|`pub_time`|字符串|是|新闻发布时间|
+|`picture_url`|字符串|否|图片 URL，若有|
+
+### 错误
+
+#### 新闻 ID 不存在
+
+> `404 Not Found`
+
+```json
+{
+    "code": 9,
+    "message": "NEWS_NOT_FOUND",
+    "data": {}
+}
+```
+
+## DELETE /favorites
+
+删除某一条收藏。
+
+### 请求
+
+在请求头中携带 `Authorization` 字段来记录 token，可通过 token 来确定用户身份。
+
+请求需要携带 query 参数，参数 `id` 代表需要删除的收藏的新闻 ID。
+
+示例：
+
+```
+/favorites?id=981
+```
+
+### 行为
+
+若新闻 ID 存在，则将其从收藏夹中删去。
+
+### 响应
+
+> `200 OK`
+
+返回一个 JSON 格式的正文，其中包含一个新闻数组，为收藏夹的首页。
 
 ```json
 {
