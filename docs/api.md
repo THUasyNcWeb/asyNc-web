@@ -696,7 +696,9 @@
             "url": "https://breaking.news",
             "picture_url": "https://breaking.news/picture.png",
             "media": "Foobar News",
-            "pub_time": "2022-10-21T19:02:16.305Z",          
+            "pub_time": "2022-10-21T19:02:16.305Z",
+            "is_favorite": false,
+            "is_readlater": true,
         }
     ]
 }
@@ -712,6 +714,8 @@
 |`picture_url`|字符串|允许为null|新闻图片 URL|
 |`media`|字符串|是|媒体|
 |`pub_time`|字符串|是|新闻发布时间|
+|`is_favorite`|布尔|是|在收藏中|
+|`is_readlater`|布尔|是|在阅读列表中|
 
 ### 错误
 
@@ -791,7 +795,9 @@
                     [1, 3],
                     [7, 9],
                     [10, 15]
-                ]
+                ],
+                "is_favorite": false,
+                "is_readlater": true,
             }
         ]
     }
@@ -813,6 +819,8 @@
 |`picture_url`|字符串|否|图片 URL，若有|
 |`title_keywords`|数组|是|标题中需要标红的关键词位置|
 |`keywords`|数组|是|需要标红的关键词位置|
+|`is_favorite`|布尔|是|在收藏中|
+|`is_readlater`|布尔|是|在阅读列表中|
 
 其中 `title_keywords` 和 `keywords` 是一个数组，每个元素是一个包含两个整数的数组，为一个需要标红的关键词的位置，从 0 开始计数，左闭右开。
 
@@ -934,7 +942,9 @@
                 "media": "Foobar News",
                 "url": "https://breaking.news",
                 "pub_time": "2022-10-21T19:02:16.305Z",
-                "picture_url": "https://breaking.news/picture.png"
+                "picture_url": "https://breaking.news/picture.png",
+                "is_favorite": false,
+                "is_readlater": true,
             }
         ]
     }
@@ -953,6 +963,8 @@
 |`url`|字符串|是|新闻 URL|
 |`pub_time`|字符串|是|新闻发布时间|
 |`picture_url`|字符串|否|图片 URL，若有|
+|`is_favorite`|布尔|是|在收藏中|
+|`is_readlater`|布尔|是|在阅读列表中|
 
 ### 错误
 
@@ -1055,7 +1067,9 @@
             "media": "Foobar News",
             "url": "https://breaking.news",
             "pub_time": "2022-10-21T19:02:16.305Z",
-            "picture_url": "https://breaking.news/picture.png"
+            "picture_url": "https://breaking.news/picture.png",
+            "is_favorite": false,
+            "is_readlater": true,
         }
     ]
 }
@@ -1071,6 +1085,8 @@
 |`url`|字符串|是|新闻 URL|
 |`pub_time`|字符串|是|新闻发布时间|
 |`picture_url`|字符串|否|图片 URL，若有|
+|`is_favorite`|布尔|是|在收藏中|
+|`is_readlater`|布尔|是|在阅读列表中|
 
 ### 错误
 
@@ -1130,7 +1146,9 @@
                 "media": "Foobar News",
                 "url": "https://breaking.news",
                 "pub_time": "2022-10-21T19:02:16.305Z",
-                "picture_url": "https://breaking.news/picture.png"
+                "picture_url": "https://breaking.news/picture.png",
+                "is_favorite": false,
+                "is_readlater": true,
             }
         ]
     }
@@ -1149,6 +1167,8 @@
 |`url`|字符串|是|新闻 URL|
 |`pub_time`|字符串|是|新闻发布时间|
 |`picture_url`|字符串|否|图片 URL，若有|
+|`is_favorite`|布尔|是|在收藏中|
+|`is_readlater`|布尔|是|在阅读列表中|
 
 ### 错误
 
@@ -1201,7 +1221,9 @@
             "media": "Foobar News",
             "url": "https://breaking.news",
             "pub_time": "2022-10-21T19:02:16.305Z",
-            "picture_url": "https://breaking.news/picture.png"
+            "picture_url": "https://breaking.news/picture.png",
+            "is_favorite": false,
+            "is_readlater": true,
         }
     ]
 }
@@ -1217,6 +1239,8 @@
 |`url`|字符串|是|新闻 URL|
 |`pub_time`|字符串|是|新闻发布时间|
 |`picture_url`|字符串|否|图片 URL，若有|
+|`is_favorite`|布尔|是|在收藏中|
+|`is_readlater`|布尔|是|在阅读列表中|
 
 ### 错误
 
@@ -1269,7 +1293,9 @@
             "media": "Foobar News",
             "url": "https://breaking.news",
             "pub_time": "2022-10-21T19:02:16.305Z",
-            "picture_url": "https://breaking.news/picture.png"
+            "picture_url": "https://breaking.news/picture.png",
+            "is_favorite": false,
+            "is_readlater": true,
         }
     ]
 }
@@ -1285,6 +1311,8 @@
 |`url`|字符串|是|新闻 URL|
 |`pub_time`|字符串|是|新闻发布时间|
 |`picture_url`|字符串|否|图片 URL，若有|
+|`is_favorite`|布尔|是|在收藏中|
+|`is_readlater`|布尔|是|在阅读列表中|
 
 ### 错误
 
@@ -1344,7 +1372,9 @@
                 "media": "Foobar News",
                 "url": "https://breaking.news",
                 "pub_time": "2022-10-21T19:02:16.305Z",
-                "picture_url": "https://breaking.news/picture.png"
+                "picture_url": "https://breaking.news/picture.png",
+                "is_favorite": false,
+                "is_readlater": true,
             }
         ]
     }
@@ -1363,6 +1393,8 @@
 |`url`|字符串|是|新闻 URL|
 |`pub_time`|字符串|是|新闻发布时间|
 |`picture_url`|字符串|否|图片 URL，若有|
+|`is_favorite`|布尔|是|在收藏中|
+|`is_readlater`|布尔|是|在阅读列表中|
 
 ### 错误
 
@@ -1415,7 +1447,9 @@
             "media": "Foobar News",
             "url": "https://breaking.news",
             "pub_time": "2022-10-21T19:02:16.305Z",
-            "picture_url": "https://breaking.news/picture.png"
+            "picture_url": "https://breaking.news/picture.png",
+            "is_favorite": false,
+            "is_readlater": true,
         }
     ]
 }
@@ -1431,6 +1465,8 @@
 |`url`|字符串|是|新闻 URL|
 |`pub_time`|字符串|是|新闻发布时间|
 |`picture_url`|字符串|否|图片 URL，若有|
+|`is_favorite`|布尔|是|在收藏中|
+|`is_readlater`|布尔|是|在阅读列表中|
 
 ### 错误
 
@@ -1483,7 +1519,9 @@
             "media": "Foobar News",
             "url": "https://breaking.news",
             "pub_time": "2022-10-21T19:02:16.305Z",
-            "picture_url": "https://breaking.news/picture.png"
+            "picture_url": "https://breaking.news/picture.png",
+            "is_favorite": false,
+            "is_readlater": true,
         }
     ]
 }
@@ -1499,6 +1537,8 @@
 |`url`|字符串|是|新闻 URL|
 |`pub_time`|字符串|是|新闻发布时间|
 |`picture_url`|字符串|否|图片 URL，若有|
+|`is_favorite`|布尔|是|在收藏中|
+|`is_readlater`|布尔|是|在阅读列表中|
 
 ### 错误
 
