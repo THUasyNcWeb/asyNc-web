@@ -958,6 +958,7 @@
                 "picture_url": "https://breaking.news/picture.png",
                 "is_favorite": false,
                 "is_readlater": true,
+                "visit_time": "2022-10-21T19:02:16.305Z"
             }
         ]
     }
@@ -978,6 +979,7 @@
 |`picture_url`|字符串|否|图片 URL，若有|
 |`is_favorite`|布尔|是|在收藏中|
 |`is_readlater`|布尔|是|在阅读列表中|
+|`visit_time`|字符串|是|最后点击时间|
 
 ### 错误
 
@@ -1083,6 +1085,8 @@
             "picture_url": "https://breaking.news/picture.png",
             "is_favorite": false,
             "is_readlater": true,
+            "pub_time": "2022-10-21T19:02:16.305Z",
+            "pub_time": "2022-10-21T19:02:16.305Z"
         }
     ]
 }
@@ -1100,6 +1104,7 @@
 |`picture_url`|字符串|否|图片 URL，若有|
 |`is_favorite`|布尔|是|在收藏中|
 |`is_readlater`|布尔|是|在阅读列表中|
+|`visit_time`|字符串|是|最后点击时间|
 
 ### 错误
 
@@ -1163,6 +1168,7 @@
                 "summary": "summary",
                 "is_favorite": false,
                 "is_readlater": true,
+                "pub_time": "2022-10-21T19:02:16.305Z"
             }
         ]
     }
@@ -1184,6 +1190,7 @@
 |`summary`|字符串|是|摘要|
 |`is_favorite`|布尔|是|在收藏中|
 |`is_readlater`|布尔|是|在阅读列表中|
+|`visit_time`|字符串|是|最后点击时间|
 
 ### 错误
 
@@ -1240,6 +1247,7 @@
             "summary": "summary",
             "is_favorite": false,
             "is_readlater": true,
+            "pub_time": "2022-10-21T19:02:16.305Z"
         }
     ]
 }
@@ -1258,6 +1266,7 @@
 |`summary`|字符串|是|摘要|
 |`is_favorite`|布尔|是|在收藏中|
 |`is_readlater`|布尔|是|在阅读列表中|
+|`visit_time`|字符串|是|最后点击时间|
 
 ### 错误
 
@@ -1314,6 +1323,7 @@
             "summary": "summary",
             "is_favorite": false,
             "is_readlater": true,
+            "pub_time": "2022-10-21T19:02:16.305Z"
         }
     ]
 }
@@ -1332,6 +1342,7 @@
 |`summary`|字符串|是|摘要|
 |`is_favorite`|布尔|是|在收藏中|
 |`is_readlater`|布尔|是|在阅读列表中|
+|`visit_time`|字符串|是|最后点击时间|
 
 ### 错误
 
@@ -1395,6 +1406,7 @@
                 "summary": "summary",
                 "is_favorite": false,
                 "is_readlater": true,
+                "pub_time": "2022-10-21T19:02:16.305Z"
             }
         ]
     }
@@ -1416,6 +1428,7 @@
 |`summary`|字符串|是|摘要|
 |`is_favorite`|布尔|是|在收藏中|
 |`is_readlater`|布尔|是|在阅读列表中|
+|`visit_time`|字符串|是|最后点击时间|
 
 ### 错误
 
@@ -1472,6 +1485,7 @@
             "summary": "summary",
             "is_favorite": false,
             "is_readlater": true,
+            "pub_time": "2022-10-21T19:02:16.305Z"
         }
     ]
 }
@@ -1490,6 +1504,7 @@
 |`summary`|字符串|是|摘要|
 |`is_favorite`|布尔|是|在收藏中|
 |`is_readlater`|布尔|是|在阅读列表中|
+|`visit_time`|字符串|是|最后点击时间|
 
 ### 错误
 
@@ -1546,6 +1561,7 @@
             "summary": "summary",
             "is_favorite": false,
             "is_readlater": true,
+            "pub_time": "2022-10-21T19:02:16.305Z"
         }
     ]
 }
@@ -1564,6 +1580,7 @@
 |`summary`|字符串|是|摘要|
 |`is_favorite`|布尔|是|在收藏中|
 |`is_readlater`|布尔|是|在阅读列表中|
+|`visit_time`|字符串|是|最后点击时间|
 
 ### 错误
 
