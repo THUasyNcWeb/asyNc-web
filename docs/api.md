@@ -630,9 +630,14 @@
         "user_name": "Bob",
         "signature": "This is my signature.",
         "tags": [
-            "C++",
-            "中年",
-            "アニメ"
+			{
+                "key":"谢娜",
+                "value":2,
+            },
+            {
+                "key":"软工",
+                "value":1,
+            }
         ],
         "mail": "waifu@diffusion.com",
         "avatar": "data:image/bmp;base64,Qk0+AgAAAAAAAD4AAAAoAAAAQAAAAEAAAAABAAEAAAAAAAACAAB0EgAAdBIAAAAAAAAAAAAAAAAAAP///wD/////////////////////////D+H///////n//z//////7///5/////+////5/////n/////////9/////7////P/////////77oAALnP///fsgAQnM///75wAAg9b///ePgACH6P//7y8AAAPv///ubgAAg8///9z0AAAA37///fgAAAA/3/+5/AAAAH/j//v+AAAA//f/+/8AAAD/+////4AAAf/7//f/wHgD////9wfh/gf//f/+//P/D/////n////+P/v/+f/////P+////////+f3////974H9/f////HOHv7z////zX/Pfg////+d//e8/////7v/+9////fff/////////8///tv///7vPf/X2////14bV/v//////9N3+7v/////73/b+//////ub5r7/////+57kvv/////7gPm+//////vP37z/////+/fXvP//////+d+9//////39//3//////f//+f/////+///7//////7///P//////3//5///////v//v///////f/5///////+/+P///////+fD/////////D///////////////////////////////////////////////////////////////////////////////////////////////////////////////w==",
@@ -647,9 +652,17 @@
 |`id`|整数|是|用户 ID|
 |`user_name`|字符串|是|用户名|
 |`signature`|字符串|是|用户签名|
-|`tags`|字符串列表|是|用户标签|
+|`tags`|对象列表|是|用户标签|
 |`mail`|字符串|是|用户邮箱|
 |`avatar`|字符串|是|用户头像|
+
+`tags`是一个数组，其中每一个对象各字段含义如下：
+|字段|类型|必选|含义|
+|-|-|-|-|
+|`key`|字符串|是|tags的内容|
+|`value`|整数|是|tags的权值|
+
+返回的`tags`数组应当按照`value`为关键字**从大到小**进行排序。
 
 ### 错误
 
