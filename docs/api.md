@@ -1597,3 +1597,77 @@
     "data": {}
 }
 ```
+
+## GET /personalize
+
+### 请求
+
+请求附带 JSON 格式的正文。
+样例：
+
+```json
+{
+    "query": "Hello",
+}
+```
+
+正文的 JSON 包含一个字典，字典的各字段含义如下：
+
+| 字段    | 类型   | 必选 | 含义       |
+| ------- | ------ | ---- | ---------- |
+| `query` | 字符串 | 是   | 查询关键词 |
+
+### 行为
+
+后端接收到请求后，向搜索后端发送查询关键词的搜索请求，每次返回的新闻最多不超过200条，并默认按照关匹配程序进行排序。
+
+### 响应
+
+### 响应
+
+> `200 OK`
+
+返回一个 JSON 格式的正文，包含搜索结果的数组。
+
+```json
+{
+    "code": 0,
+    "message": "SUCCESS",
+    "data": {
+        "page_count": 15,
+        "news": [
+            {
+                "id": 114,
+                "title": "Breaking News",
+                "media": "Foobar News",
+                "url": "https://breaking.news",
+                "pub_time": "2022-10-21T19:02:16.305Z",
+                "content": "BREAKING NEWS!!!",
+                "picture_url": "https://breaking.news/picture.png",
+                "is_favorite": false,
+                "is_readlater": true,
+            }
+        ]
+    }
+}
+```
+
+`page_count` 表示这个搜索词的结果一共有多少页。
+
+`news` 是一个数组，其中每个对象各字段含义如下：
+
+| 字段             | 类型   | 必选 | 含义                         |
+| ---------------- | ------ | ---- | ---------------------------- |
+| `id`             | 整数   | 是   | 新闻 ID                      |
+| `title`          | 字符串 | 是   | 标题                         |
+| `media`          | 字符串 | 是   | 媒体                         |
+| `url`            | 字符串 | 是   | 新闻 URL                     |
+| `pub_time`       | 字符串 | 是   | 新闻发布时间                 |
+| `content`        | 字符串 | 是   | 新闻内容与关键词相关的上下文 |
+| `picture_url`    | 字符串 | 否   | 图片 URL，若有               |
+| `title_keywords` | 数组   | 是   | 标题中需要标红的关键词位置   |
+| `keywords`       | 数组   | 是   | 需要标红的关键词位置         |
+| `is_favorite`    | 布尔   | 是   | 在收藏中                     |
+| `is_readlater`   | 布尔   | 是   | 在阅读列表中                 |
+
+其中 `title_keywords` 和 `keywords` 是一个数组，每个元素是一个包含两个整数的数组，为一个需要标红的关键词的位置，从 0 开始计数，左闭右开。
