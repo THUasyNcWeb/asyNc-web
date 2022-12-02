@@ -600,6 +600,19 @@
 }
 ```
 
+#### 用户名已占用
+
+> `400 Bad Request`
+
+```json
+{
+    "code": 9,
+    "message": "USER_NAME_CONFLICT",
+    "data": {}
+}
+```
+
+#### 
 
 ## GET /userinfo
 
